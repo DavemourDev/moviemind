@@ -97,7 +97,6 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div id="container">
             <header id="header">
                 {% block header %}
                     <!--Aquí podríamos meter un logo o un algo-->
@@ -114,15 +113,16 @@
                     {% include 'navigation/no-logged.html.twig'%}
                 {% endblock %}
             </nav>
+        <div id="container">
             <main id="main">
-                {% block body %}
+                {% block main %}
                     Contenido de cuerpo por defecto
                 {% endblock %}
             </main>
             <aside id="sidebar">
             {% block aside %}{% endblock %}
         </aside>
-        <footer>
+        <footer id="footer">
             {% block footer %}
                 <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
                 <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
