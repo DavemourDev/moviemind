@@ -1,19 +1,16 @@
 {% extends 'base.html.twig' %}
 
-
-
-
 {% block header %} {% endblock %}
 {% block main %}
-    <section>
+    <section id="search-block">
+       
         <h1 class="big-title">
             Moviemind
         </h1>
         <form>
-            <input type="search">
-
-            </input>
+            <input type="search" id="search-input" class="form-input form-control">
         </form>
+            
     </section>
         
 {% endblock %}
