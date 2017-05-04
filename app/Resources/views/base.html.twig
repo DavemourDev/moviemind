@@ -11,7 +11,7 @@
             /*
                 ESTILOS DE BASE. MODIFICAR SOLAMENTE AQUÍ
             */
-            body { background: #F5F5F5; font: 18px/1.5 sans-serif; font-family: 'Roboto', sans-serif;}
+            body { background: #F5F5F5; font-size: 1.5em; font-family: 'Roboto', sans-serif;}
             h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
             h1 { font-size: 36px; }
             h2 { font-size: 21px; margin-bottom: 1em; }
@@ -28,37 +28,38 @@
                 display:flex;
                 flex-direction:column;
             }
-
-            #header
-            {
-                color:#eef;
-                background:#000;
-                padding:1.25rem;
-            }
-
-            #header>hgroup
-            {
-                text-align:center;
-            }
-
-            #header>hgroup>h1
-            {
-                color:#fff;
-                letter-spacing:0.2rem;
-            }
-
-            #header>hgroup>h2
-            {
-                color:#ccc;
-            }
-
+            /*
+                        #header
+                        {
+                            color:#eef;
+                            background:#000;
+                            padding:1.25rem;
+                        }
+            
+                        #header>hgroup
+                        {
+                            text-align:center;
+                        }
+            
+                        #header>hgroup>h1
+                        {
+                            color:#fff;
+                            letter-spacing:0.2rem;
+                        }
+            
+                        #header>hgroup>h2
+                        {
+                            color:#ccc;
+                        }
+            */
             #navigation
             {
                 display:flex;
                 flex-direction:row;
                 flex-wrap: wrap;
                 justify-content:space-between;
-                background:#000;
+                background:#333;
+                padding:10px;
             }
 
             #navigation>.nav-panel
@@ -80,13 +81,9 @@
 
             #navigation>.nav-panel>a:hover
             {
-                color:#9f9;
+                text-decoration: underline;
             }
 
-            .nav-icon
-            {
-                width:1em;
-            }
 
             @media (min-width: 768px) {
                 #wrapper { width: 80%; margin: 2em auto; }
@@ -101,10 +98,12 @@
                 font-family: 'Dosis', sans-serif;
                 font-size: 4em;
                 margin-bottom: 0.3em;
+                text-align: center;
+                 letter-spacing: 10px;
             }
             #search-block{
                 position:absolute;
-                top:40%;
+                top:30%;
                 left:35%;
             }
             footer{
@@ -112,12 +111,11 @@
                 bottom:0px;
             }
             .search-input{
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
                 border-radius:2px;
             }
 
             .search-input:focus{
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.0), 0 0px 0px 0 rgba(0, 0, 0, 0.0);
                 border-color:#ccc;
                 outline: none;
             }
@@ -130,22 +128,44 @@
                 right:0px;
                 background-color: #ccc;
             }
-            
+            #search-input-home{
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+            }
+            #search-input-home:focus{
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                border-color:#ccc;
+                outline: none;
+            }
+            #search-input-results{
+                border: 0;
+                outline: 0;
+                background: transparent;
+                border-bottom: 1px solid white;
+                font-size:0.7em;
+                color:white;
+                width: 150px;
+            }
+            #search-button-results{
+                background-color:transparent;
+                color:white;
+                border:none;
+                font-size:0.7em;
+
+            }
+            #search-input-results:focus{
+                border-bottom: 1px solid #ccc;
+            }
+            #home-link{
+                font-family: 'Dosis', sans-serif;
+                letter-spacing:2px;
+            }
+
         </style>
         <link href="https://fonts.googleapis.com/css?family=Dosis|Roboto" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <header id="header">
-            {% block header %}
-                <!--Aquí podríamos meter un logo o un algo-->
-                <hgroup>
-                    <!--Título y subtítulo de la página-->
-                    <h1>Moviemind</h1>
-                    <h2>Películas pa your body</h2>
-                </hgroup>
-            {% endblock %}
-        </header>
+
         <nav id="navigation">
             {% block navigation %}
                 {% include 'navigation/main-navigation.html.twig' %}
@@ -164,8 +184,7 @@
         </aside>
         <footer id="footer">
             {% block footer %}
-                <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-                <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+               
             {% endblock %}
         </footer>
     </div>
