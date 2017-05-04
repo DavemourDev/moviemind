@@ -41,7 +41,7 @@ class DefaultController extends Controller
         $Peliculas=[];
         $Peliculas .= $get->getId();
         $Peliculas .= $get->getTitle();
-        $Peliculas .= $get->getContent();
+        $Peliculas .= $get->getImdb();
     
         
             return $this->render('navigation/busqueda.html.twig', [
