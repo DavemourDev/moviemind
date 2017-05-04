@@ -13,15 +13,16 @@
  
 class Imdb
 {   
+    
     // Get movie information by Movie Title.
     // This method searches the given title on Google, Bing or Ask to get the best possible match.
     public function getMovieInfo($title, $getExtraInfo = true)
     {
-        $imdbId = $this->getIMDbIdFromSearch(trim($title));
+        $imdbId = $this->getIMDbIdFromSearch(trim($title), true);
         if($imdbId === NULL){
             $arr = array();
             $arr['error'] = "No Title found in Search Results!";
-            return $arr;
+            return array_unique($arr);
         }
         return $this->getMovieInfoById($imdbId, $getExtraInfo);
     }
@@ -190,7 +191,14 @@ class Imdb
     //************************[ Extra Functions ]******************************
  
     // Movie title search on Google, Bing or Ask. If search fails, return FALSE.
-    private function getIMDbIdFromSearch($title, $engine = "google"){
+    
+    /*
+     * EDITADO POR DAVID 03.05.2017
+     * -Ahora se eliminan los resultados de búsqueda duplicados.
+     * -Añadido atributo para devolver toda el array de IDs en lugar de la primera de la lista.
+     *  Esto últimpo puede ser útil de cara a generar la pantalla de resultados de una búsqueda.
+     */
+    private function getIMDbIdFromSearch($title, $getAll = false, $engine = "google"){
         switch ($engine) {
             case "google":  $nextEngine = "bing";  break;
             case "bing":    $nextEngine = "ask";   break;
@@ -199,14 +207,18 @@ class Imdb
             default:        return NULL;
         }
         $url = "http://www.${engine}.com/search?q=imdb+" . rawurlencode($title);
-        $ids = $this->match_all('/<a.*?href="http:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1);
+        $ids = array_unique($this->match_all('/<a.*?href="http:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1));
         
+        echo "<pre>";
+        var_dump($ids);
+        echo "</pre>";
         
         if (!isset($ids[0]) || empty($ids[0])) //if search failed
-            return $this->getIMDbIdFromSearch($title, $nextEngine); //move to next search engine
+            return $this->getIMDbIdFromSearch($title, $getAll, $nextEngine); //move to next search engine
         else
-            return $ids[0]; //return first IMDb result
+            return $getAll===true?$ids:$ids[0]; //return first IMDb result
     }
+   
      
     private function geturl($url){
         $ch = curl_init();
