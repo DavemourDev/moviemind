@@ -23,7 +23,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/buscar/{busqueda}", name="busqueda")
+     * @Route("/buscar/", name="resultado")
      */
     public function buscarAction(Request $request) {
         $busqueda = $request->get("buscar");
@@ -31,7 +31,7 @@ class DefaultController extends Controller {
         $resultados = $this->getDoctrine()
                 ->getRepository('AppBundle:Pelicula')
                 //->find($busqueda);
-                ->findAll($busqueda);
+                ->find($busqueda);
         
         //$peliculas=[];
         
