@@ -111,17 +111,26 @@
                 position:absolute;
                 bottom:0px;
             }
-            .form-input{
+            .search-input{
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
-                transition: none;
                 border-radius:2px;
             }
 
-            .form-input:focus{
+            .search-input:focus{
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 border-color:#ccc;
                 outline: none;
             }
+            .search-form{
+                position:relative;
+            }
+            .search-button{
+                position:absolute;
+                top:0px;
+                right:0px;
+                background-color: #ccc;
+            }
+            
         </style>
         <link href="https://fonts.googleapis.com/css?family=Dosis|Roboto" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -141,6 +150,7 @@
             {% block navigation %}
                 {% include 'navigation/main-navigation.html.twig' %}
                 {% include 'navigation/no-logged.html.twig'%}
+                {% include 'navigation/barra-busqueda.html.twig' %}
             {% endblock %}
         </nav>
         <div id="container">
