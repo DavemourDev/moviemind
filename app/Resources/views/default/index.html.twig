@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+ {% block navigation %}
+                {% include 'navigation/main-navigation.html.twig' %}
+                {% include 'navigation/no-logged.html.twig'%}
+{% endblock %}
+{% block main %}
+    <section id="search-block">
+       
+        <h1 class="big-title flex-item">
+            Moviemind
+        </h1>
+        <form method="get" class="search-form" action="resultado">
+            <input type="search" name="buscar" class="search-input form-control" size="70" id="search-input-home">
+            <button class="search-button btn" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+            
+    </section>
+        
+{% endblock %}
