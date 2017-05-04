@@ -94,4 +94,50 @@ class Pelicula
     {
         return $this->id;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $idGenero;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idGenero = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add idGenero
+     *
+     * @param \AppBundle\Entity\Genero $idGenero
+     *
+     * @return Pelicula
+     */
+    public function addIdGenero(\AppBundle\Entity\Genero $idGenero)
+    {
+        $this->idGenero[] = $idGenero;
+
+        return $this;
+    }
+
+    /**
+     * Remove idGenero
+     *
+     * @param \AppBundle\Entity\Genero $idGenero
+     */
+    public function removeIdGenero(\AppBundle\Entity\Genero $idGenero)
+    {
+        $this->idGenero->removeElement($idGenero);
+    }
+
+    /**
+     * Get idGenero
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdGenero()
+    {
+        return $this->idGenero;
+    }
 }
