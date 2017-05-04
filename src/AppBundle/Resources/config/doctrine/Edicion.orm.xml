@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Edicion" table="edicion">
+    <indexes>
+      <index name="id_pelicula" columns="id_pelicula"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="100" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">original</option>
+      </options>
+    </field>
+    <field name="year" type="datetime" column="year" nullable="false"/>
+    <many-to-one field="idPelicula" target-entity="Pelicula" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_pelicula" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="idFormato" target-entity="Formato" inversed-by="idEdicion" fetch="LAZY">
+      <join-table name="producto">
+        <join-columns>
+          <join-column name="id_edicion" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="id_formato" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

@@ -26,9 +26,27 @@ class DefaultController extends Controller
      */
     public function buscarAction(Request $request)
     {
-        // replace this example code with whatever you need
+        $titulo= new $request->get("buscar");
+        $resultados = $this->getDoctrine() 
+                ->getRepository('AppBundle:Pelicula') 
+                ->find($titulo);
+        $pelicula->setTitulo($titulo);
+               
+        if (!$titulo){
+            $sinresultado="No hay titulo seleccionado";
         return $this->render('navigation/busqueda.html.twig', [
-            'busqueda'=>$request->get('busqueda'),
-        ]);
-    }
+            'busqueda'=>$sinresultado,
+        ]);    
+        } else {
+        $Peliculas=[];
+        $Peliculas .= $get->getId();
+        $Peliculas .= $get->getTitle();
+        $Peliculas .= $get->getContent();
+    
+        
+            return $this->render('navigation/busqueda.html.twig', [
+            'busqueda'=>$titulo, 
+            ]);
+        }
+   }
 }
