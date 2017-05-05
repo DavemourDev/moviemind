@@ -26,12 +26,22 @@ class DefaultController extends Controller {
      * @Route("/buscar/", name="resultado")
      */
     public function buscarAction(Request $request) {
-        $busqueda = $request->get("buscar");
+        //$busqueda = $request->get("buscar");
 
+        
+        
         $resultados = $this->getDoctrine()
                 ->getRepository('AppBundle:Pelicula')
+                ->findAll();
                 //->find($busqueda);
-                ->find($busqueda);
+        
+        foreach($resultados as $r)
+        {
+            $r->setSource('Omdb');
+            $r->fetch();
+        }
+        
+        var_dump($resultados[3]->getInfo('Title'));
         
         //$peliculas=[];
         
