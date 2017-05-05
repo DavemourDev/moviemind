@@ -17,7 +17,7 @@ class DefaultController extends Controller {
 
 
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        return $this->render('full-views/index.html.twig', [
                     'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
         ]);
     }
@@ -48,5 +48,13 @@ class DefaultController extends Controller {
             ]);
         
     }
+  /**
+     * @Route("/test/", name="test")
+     */
+    public function testAction(Request $request) {
 
+            return $this->render('full-views/resultados.html.twig', [
+            ]);
+        
+    }
 }
