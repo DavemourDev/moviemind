@@ -23,35 +23,13 @@
             #container 
             { 
                 width:80%; 
+                max-width: 1080px;
                 min-width:380px;
                 margin:auto;
                 display:flex;
                 flex-direction:column;
             }
-            /*
-                        #header
-                        {
-                            color:#eef;
-                            background:#000;
-                            padding:1.25rem;
-                        }
-            
-                        #header>hgroup
-                        {
-                            text-align:center;
-                        }
-            
-                        #header>hgroup>h1
-                        {
-                            color:#fff;
-                            letter-spacing:0.2rem;
-                        }
-            
-                        #header>hgroup>h2
-                        {
-                            color:#ccc;
-                        }
-            */
+
             #navigation
             {
                 display:flex;
@@ -59,7 +37,7 @@
                 flex-wrap: wrap;
                 justify-content:space-between;
                 background:#333;
-                padding:10px;
+
             }
 
             #navigation>.nav-panel
@@ -75,16 +53,9 @@
             {
                 color:#fff;
                 padding:.25rem;
-                text-shadow:1px 1px 1px #333;
                 text-decoration:none;
+
             }
-
-            #navigation>.nav-panel>a:hover
-            {
-                text-decoration: underline;
-            }
-
-
             @media (min-width: 768px) {
                 #wrapper { width: 80%; margin: 2em auto; }
                 #icon-book { display: inline-block; }
@@ -99,7 +70,7 @@
                 font-size: 4em;
                 margin-bottom: 0.3em;
                 text-align: center;
-                 letter-spacing: 10px;
+                letter-spacing: 10px;
             }
             #search-block{
                 position:absolute;
@@ -160,6 +131,77 @@
                 letter-spacing:2px;
             }
 
+            .nav-panel>a{
+                opacity:1;
+            }
+
+            .nav-panel>a:hover{
+                opacity:0.7;
+            }
+            @media (max-width: 800px) {
+                #login-text{
+                    display:none;
+                }
+            }
+            #home-link:hover{
+                font-weight: bold;
+            }
+            #navigation div{
+                padding:10px;
+            }
+            #login-div{
+                transition: background-color 0.2s;
+            }
+            .result-article{
+                padding:20px;   
+            }
+            .dropbtn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 16px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 12px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown-content a:hover {background-color: #f1f1f1}
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown:hover .dropbtn {
+                background-color: #3e8e41;
+            }
+            .caratula{
+                width: 120px;  
+            }
+            @media (max-width: 576px) {
+                #details-results-div{
+                   width: 100%;
+                }
+            }
         </style>
         <link href="https://fonts.googleapis.com/css?family=Dosis|Roboto" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -169,12 +211,14 @@
         <nav id="navigation">
             {% block navigation %}
                 {% include 'navigation/main-navigation.html.twig' %}
+                {% include 'navigation/barra-busqueda.html.twig' %}               
                 {% include 'navigation/no-logged.html.twig'%}
-                {% include 'navigation/barra-busqueda.html.twig' %}
+                {% include 'navigation/carrito.html.twig' %}
+
             {% endblock %}
         </nav>
-        <div id="container">
-            <main id="main">
+        <div id="container" >
+            <main id="main" class="container container-fluid">
                 {% block main %}
                     Contenido de cuerpo por defecto
                 {% endblock %}
@@ -184,11 +228,13 @@
         </aside>
         <footer id="footer">
             {% block footer %}
-               
+
             {% endblock %}
         </footer>
     </div>
-{% block javascripts %}{% endblock %}
+    {% block javascripts %}
+        <script src="{{asset('js/script.js')}}"></script>
+    {% endblock %}
 
 </body>
 </html>
