@@ -3,6 +3,10 @@
 
 {% block header %} {% endblock %}
 {% block main %}
-     {% include 'resultado/articulo-pelicula.html.twig'%}       
-     {% include 'resultado/articulo-pelicula.html.twig'%}       
+    {% for p in peliculas %}
+        {% set title=p.titulo %}
+     {% include 'resultado/articulo-pelicula.html.twig'%}     
+    {% else %} 
+        
+    {% endfor %}
 {% endblock %}
