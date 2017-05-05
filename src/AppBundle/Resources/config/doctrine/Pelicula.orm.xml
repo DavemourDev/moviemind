@@ -17,5 +17,15 @@
         <option name="fixed"/>
       </options>
     </field>
+    <many-to-many field="idGenero" target-entity="Genero" inversed-by="idPelicula" fetch="LAZY">
+      <join-table name="genero_pelicula">
+        <join-columns>
+          <join-column name="id_pelicula" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="id_genero" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
   </entity>
 </doctrine-mapping>
