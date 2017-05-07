@@ -1,12 +1,30 @@
+{#
+    VARIABLES REQUERIDAS PARA ESTA PLANTILLA (declarar antes de invocarla):
+        peliculas: array de instancias de entidad pelicula o producto. 
+        Por ahora se usarán películas, hasta que sea posible obtener los productos.
+#}
 
 {% extends 'base.html.twig' %}
 
-{% block header %} {% endblock %}
+<!-- David: el bloque header no existe en la base ya, así que me he tomado la libertad de eliminarlo de aquí. -->
+
 {% block main %}
     {% for p in peliculas %}
+        <!--
+        David:
+            Para cada película se fija el valor de las variables a partir de los resultados obtenidos.
+            Dichas variables son las usadas por la subplantilla 'articulo-pelicula'.
+            Haciéndolo así se separa la lógica de obtención de los datos de la representación de éstos.
+        -->
         {% set title=p.titulo %}
-     {% include 'resultado/articulo-pelicula.html.twig'%}     
-    {% else %} 
+        {% set director=p.info['director'] %}
+        {% set year=p.info['year'] %}
+        {% set edicion="Original" %}
+        {% set portrait=p.info['portrait'] %}
         
+     {% include 'resultado/articulo-pelicula.html.twig'%}     
+    {% else %}
+        <!--Si no se obtiene ningún resultado de búsqueda, saldrá esto.-->
+        <p class="bg-info">No se han obtenido resultados para la búsqueda realizada.</p>
     {% endfor %}
 {% endblock %}
