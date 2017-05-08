@@ -14,8 +14,8 @@ use AppBundle\Utils\Imdb;
 class Pelicula
 {
     
-    private $info=[];
-    private  $source="Omdb";
+    public $info=[];
+    private $source="Omdb";
     
     /**
      * @var string
@@ -159,9 +159,6 @@ class Pelicula
     
     public function fetchOmdb()
     {
-        echo "<pre>";
-        var_dump((new Imdb())->getMovieInfoByIdOmdb($this->getImdb()));
-        echo "</pre>";
         
         $this->info=(new Imdb())->getMovieInfoByIdOmdb($this->getImdb());
     }
