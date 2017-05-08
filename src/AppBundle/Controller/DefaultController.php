@@ -41,7 +41,7 @@ class DefaultController extends Controller {
             $r->fetch();
         }
         
-        var_dump($resultados[3]->getInfo('Title'));
+        //var_dump($resultados[3]->getInfo('Title'));
         
         //$peliculas=[];
         

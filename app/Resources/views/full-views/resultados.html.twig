@@ -6,8 +6,6 @@
 
 {% extends 'base.html.twig' %}
 
-<!-- David: el bloque header no existe en la base ya, así que me he tomado la libertad de eliminarlo de aquí. -->
-
 {% block main %}
     {% for p in peliculas %}
         <!--
@@ -17,10 +15,10 @@
             Haciéndolo así se separa la lógica de obtención de los datos de la representación de éstos.
         -->
         {% set title=p.titulo %}
-        {% set director=p.info['director'] %}
-        {% set year=p.info['year'] %}
-        {% set edicion="Original" %}
-        {% set portrait=p.info['portrait'] %}
+        {% set director=p.info['Director'] %}
+        {% set year=p.info['Year'] %}
+        {% set edition="Original" %}
+        {% set portrait=p.info['Poster'] %}
         
      {% include 'resultado/articulo-pelicula.html.twig'%}     
     {% else %}

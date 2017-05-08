@@ -8,6 +8,8 @@
         formats: Array de entidades formato en los que se presenta la película.
 #}
 
+{% set formats = ['','',''] %}
+
 <article class="result-article row">
     <figure class="col-xl-1 col-lg-2 col-md-2 col-sm-3">
     <img src="{{portrait}}" class="caratula">
@@ -21,12 +23,12 @@
             <div class="dropdown">
                 <button class="btn btn-success">Buy</button>
                 <div class="dropdown-content">
-                    {{% for f in formats %}}
-                        {{% set buy_format_link="Enlace/de/formato/del/objeto" %}}
-                        {{% set format_name="DVD" %}}
-                        {{% set format_price=15.00%}}
-                            <a href="{{buy_format}}">{{format_name}} {{format_price}}€</a>
-                    {{% endfor %}}
+                    {% for f in formats %}
+                        {% set buy_format_link="Enlace/de/formato/del/objeto" %}
+                        {% set format_name="DVD" %}
+                        {% set format_price=15.00%}
+                            <a href="{{buy_format_link}}">{{format_name}} {{format_price}}€</a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
