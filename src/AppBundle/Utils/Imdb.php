@@ -10,6 +10,8 @@
 // Last Updated: May 6, 2014
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
  
+namespace AppBundle\Utils;
+
 class Imdb
 {   
     
@@ -34,6 +36,11 @@ class Imdb
         return $this->scrapeMovieInfo($imdbUrl, $getExtraInfo);
     }
      
+    // Get movie information by IMDb Id on OMDBAPI.
+    public function getMovieInfoByIdOmdb($imdbId) {
+        return json_decode(file_get_contents("http://www.omdbapi.com/?i=" . trim($imdbId)), true);
+    }
+
     // Scrape movie information from IMDb page and return results in an array.
     private function scrapeMovieInfo($imdbUrl, $getExtraInfo = true)
     {
