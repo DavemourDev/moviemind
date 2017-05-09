@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Utils\Imdb;
 
 /**
  * Pelicula
@@ -12,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pelicula
 {
+    
+    public $info=[];
+    private $source="Omdb";
+    
     /**
      * @var string
      *
@@ -47,7 +52,6 @@ class Pelicula
     public function setImdb($imdb)
     {
         $this->imdb = $imdb;
-
         return $this;
     }
 
@@ -140,4 +144,34 @@ class Pelicula
     {
         return $this->idGenero;
     }
+    
+    public function getInfo($key)
+    {
+        return isset($this->info[$key])?$this->info[$key]:null;
+    }
+    
+    public function fetchImdb()
+    {
+        $imdb=new Imdb();
+        
+        $this->info=$imdb->getMovieInfoById($this->getImdb(),false);
+    }
+    
+    public function fetchOmdb()
+    {
+        
+        $this->info=(new Imdb())->getMovieInfoByIdOmdb($this->getImdb());
+    }
+    
+    public function setSource($source)
+    {
+        if(in_array($source, ['Imdb','Omdb']))
+            $this->source=$source;
+    }
+    
+    public function fetch()
+    {
+        $this->{"fetch".$this->source}();
+    }
+    
 }

@@ -220,20 +220,24 @@
         <div id="container" >
             <main id="main" class="container container-fluid">
                 {% block main %}
-                    Contenido de cuerpo por defecto
                 {% endblock %}
             </main>
             <aside id="sidebar">
-            {% block aside %}{% endblock %}
+            {% block aside %}
+                <!--David: Si el carrito va en la nav, esto lo podemos eliminar, no?-->
+            {% endblock %}
         </aside>
         <footer id="footer">
             {% block footer %}
-
-            {% endblock %}
+           {% endblock %}
         </footer>
     </div>
+    <!--David:
+        Pongo aquí el javascript común a todas las páginas.
+        Si en una página nos da por añadir scripts usando el bloque script nos machacará lo que haya en él en esta plantilla.
+    -->
+        <script src="{{asset('js/script.js')}}"></script>        
     {% block javascripts %}
-        <script src="{{asset('js/script.js')}}"></script>
     {% endblock %}
 
 </body>
