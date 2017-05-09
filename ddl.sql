@@ -44,6 +44,8 @@ create table if not exists edicion(
     
     primary key (id),
     foreign key (id_pelicula) references pelicula(id)
+		on delete cascade on update cascade
+        
 );
 
 drop table if exists formato;
@@ -64,10 +66,13 @@ create table if not exists producto(
     precio decimal(5,2) not null,
 	cantidad int unsigned not null default 0,
     vendidos int unsigned not null default 0,
+    descatalogado bool not null default false, -- Los productos descatalogados no se muestran a los usuarios de la aplicación en principio
     
     primary key (codigo_producto),
-    foreign key (id_edicion) references edicion(id),
+    foreign key (id_edicion) references edicion(id)
+		on delete cascade on update cascade,
     foreign key (id_formato) references formato(id)
+		on delete no action on update cascade
 );
 
 -- cliente
@@ -76,6 +81,7 @@ create table if not exists cliente(
 	id int unsigned not null auto_increment,
     nombre varchar(100) not null unique,
     email varchar(255) not null,
+    pass varchar(255) not null,
     fecha_registro datetime not null default current_timestamp(),
     
     primary key(id)
@@ -101,7 +107,8 @@ create table if not exists entrada_pedido(
     descuento decimal (3,2) not null default 0.0,
     
     primary key(codigo_producto, id_pedido),
-    foreign key(codigo_producto) references producto(codigo_producto),
+    foreign key(codigo_producto) references producto(codigo_producto)
+		on delete cascade on update cascade,
     foreign key(id_pedido) references pedido(id)
     
 );
