@@ -174,4 +174,8 @@ class Pelicula
         $this->{"fetch".$this->source}();
     }
     
+    public function __toString() {
+        return $this->getTitulo();
+    }
+    
 }

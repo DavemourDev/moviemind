@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Formatos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Icono</th>
+                <th>Usastock</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for formato in formatos %}
+            <tr>
+                <td><a href="{{ path('crud_formato_show', { 'id': formato.id }) }}">{{ formato.nombre }}</a></td>
+                <td>{{ formato.icono }}</td>
+                <td>{% if formato.usaStock %}Yes{% else %}No{% endif %}</td>
+                <td>{{ formato.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('crud_formato_show', { 'id': formato.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('crud_formato_edit', { 'id': formato.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('crud_formato_new') }}">Create a new formato</a>
+        </li>
+    </ul>
+{% endblock %}

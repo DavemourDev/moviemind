@@ -155,5 +155,13 @@ class Genero
     {
         return $this->idPelicula;
     }
+    
+    
+    public function __toString() 
+    {
+        return $this->nombreEn;
+    }
+    
+    
 }
 

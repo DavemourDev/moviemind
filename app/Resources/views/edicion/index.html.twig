@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Edicions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Year</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for edicion in edicions %}
+            <tr>
+                <td><a href="{{ path('crud_edicion_show', { 'id': edicion.id }) }}">{{ edicion.nombre }}</a></td>
+                <td>{% if edicion.year %}{{ edicion.year|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ edicion.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('crud_edicion_show', { 'id': edicion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('crud_edicion_edit', { 'id': edicion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('crud_edicion_new') }}">Create a new edicion</a>
+        </li>
+    </ul>
+{% endblock %}

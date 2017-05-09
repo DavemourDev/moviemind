@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Peliculas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Imdb</th>
+                <th>Titulo</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pelicula in peliculas %}
+            <tr>
+                <td><a href="{{ path('crud_pelicula_show', { 'id': pelicula.id }) }}">{{ pelicula.imdb }}</a></td>
+                <td>{{ pelicula.titulo }}</td>
+                <td>{{ pelicula.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('crud_pelicula_show', { 'id': pelicula.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('crud_pelicula_edit', { 'id': pelicula.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('crud_pelicula_new') }}">Create a new pelicula</a>
+        </li>
+    </ul>
+{% endblock %}
