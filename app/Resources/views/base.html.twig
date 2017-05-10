@@ -49,7 +49,7 @@
                 align-content: center;
             }
 
-            #navigation>.nav-panel>a, .link-nav
+            #navigation>.nav-panel>a, .link-nav, #logged
             {
                 color:#fff;
                 padding:.25rem;
@@ -204,6 +204,10 @@
                 .details-results-div, #details-results-div{
                     width: 100%;
                 }
+                #sidebar{
+                    clear:both;
+                    height:200px;
+                }  
             }
             .caratula-info-fig, .caratula-info-img{
                 width: 220px;
@@ -233,6 +237,12 @@
                 .link-nav{
                     width:300px;
                 }
+                #sidebar{
+                    clear:both;
+                    height:2px;
+                    z-index:0;
+                    float:none !important;
+                }  
             }
 
             .badge {
@@ -314,7 +324,7 @@
                 border-bottom: 1px solid #E8E8E8;
                 padding-bottom: 15px;
                 height: 35px;
-            }
+            }  
             .shopping-cart-header .shopping-cart-total {
                 float: right;
             }
@@ -348,27 +358,61 @@
                 text-decoration: none;
                 color:inherit;
             }
-
+            #sidebar{
+                height: 0px;
+                z-index: 5;
+                float:right;
+                display:none;
+            }
+           #logged{
+                color:white;
+            }
+            .form-control{
+                margin-bottom: 12px;
+            }
+            #confirm-form-div{
+                margin-top: 15px;
+            }
+            td, th {
+                text-align: center;
+                padding: 10px;
+            }
+            th{
+                 border-bottom: 1px solid #dddddd;
+            }
+            #ordersummary{
+                margin-top: 50px;
+            }
+            #ordersummary-table{
+                width:100%;
+                background-color: white;
+            }
+            #ordersummary-h1 {
+                margin-top: 50px;
+            }
+            #carddetails-h2{
+                margin-top: 50px;
+            }
+            
         </style>
         <link href="https://fonts.googleapis.com/css?family=Dosis|Roboto" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
 
-        <nav id="navigation">
+        <nav id="navigation" class="navbar navbar-default">
             {% block navigation %}
                 {% include 'navigation/main-navigation.html.twig' %}
                 {% include 'navigation/barra-busqueda.html.twig' %}               
                 {% include 'navigation/no-logged.html.twig'%}
                 {% include 'navigation/carrito.html.twig' %}
-
             {% endblock %}
         </nav>
-        <aside id="sidebar">
+        <div id="sidebar">
             {% block aside %}
                 {% include 'carrito/cart-content.html.twig' %}
             {% endblock %}
-        </aside>
+        </div>
         <div id="container" >
 
             <main id="main" class="container container-fluid">
@@ -383,10 +427,6 @@
                 {% endblock %}
             </footer>
         </div>
-        <!--David:
-            Pongo aquí el javascript común a todas las páginas.
-            Si en una página nos da por añadir scripts usando el bloque script nos machacará lo que haya en él en esta plantilla.
-        -->
         <script src="{{asset('js/script.js')}}"></script>        
         {% block javascripts %}
         {% endblock %}

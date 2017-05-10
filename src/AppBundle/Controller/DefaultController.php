@@ -8,147 +8,88 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Pelicula;
 use AppBundle\Utils\Imdb;
 
-
-
 class DefaultController extends Controller {
 
     /**
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
-
-
-        // replace this example code with whatever you need
-        return $this->render('full-views/index.html.twig', [
-                    'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
-        ]);
+        //Landing Page
+        return $this->render('full-views/index.html.twig');
     }
 
-    /**
-     * @Route("/buscar/{texto}", name="resultado")
-     */
-    public function buscarAction(Request $request) {
-        //$busqueda = $request->get("buscar");
 
-        
-        
-        $resultados = $this->getDoctrine()
-                ->getRepository('AppBundle:Pelicula')
-                ->findAll();
-                //->find($busqueda);
-        
-        foreach($resultados as $r)
-        {
-            $r->setSource('Omdb');
-            $r->fetch();
-        }
-
-        //$peliculas=[];
-        
-//        foreach($resultados as $r)
-//        {
-//            $p=new Pelicula();
-//            $p->setTitulo($r->titulo);
-//            $p->setImdb($r->imdb);
-//            $peliculas[]=$p;
-//        }
-
-            return $this->render('full-views/resultados.html.twig', [
-                        'peliculas' => $resultados,
-            ]);
-        
-    }
-    
     /**
-     * @Route("/info/{id}", name="products")
+     * @Route("/moreInfo/{imdb}", name="info")
      */
-    public function productsAction($id, Request $request) 
-    {
-        
-        
-    }
-    
-    
-    
-    /**
-     * @Route("/info/", name="info")
-     */
-    public function infoAction(Request $request) {
-        //$busqueda = $request->get("buscar");
+    public function moreInfoAction(Request $request) {
 
         $productos = $this->getDoctrine()
                 ->getRepository('AppBundle:Producto')
                 ->findAll();
-                //->find($busqueda);
-        
-        $peliculas= $this->getDoctrine()
+
+        $peliculas = $this->getDoctrine()
                 ->getRepository('AppBundle:Pelicula')
                 ->findAll();
-        
-        $ediciones= $this->getDoctrine()
+
+        $ediciones = $this->getDoctrine()
                 ->getRepository('AppBundle:Edicion')
                 ->findAll();
-        
-        foreach($peliculas as $p)
-        {
+
+        foreach ($peliculas as $p) {
             $p->setSource('Omdb');
             $p->fetch();
         }
 
-        return $this->render('full-views/test.html.twig', [
+        return $this->render('full-views/moreInfo.html.twig', [
                     'productos' => $productos,
                     'peliculas' => $peliculas,
                     'ediciones' => $ediciones,
         ]);
-        
     }
 
-    
     /**
-     * @Route("/login-register/", name="login-register")
+     * NOTA: La expresión regular de requisito del parámetro título admite letras y guión bajo. 
+     * Los guiones bajos se reemplazan por espacios.
+     * @Route("/buscar/{busqueda}", name="buscar", requirements={"busqueda"="^[a-zA-Z_ ]*\s*"})
      */
-    public function loginRegisterAction(Request $request) {
-    
-        return $this->render('full-views/login-register.html.twig', [
-            'error'=>false,
-            'notice'=>''
-        ]);
+    public function buscarAction(Request $request, $busqueda="") {
         
+        if($request->get('buscar')!==null)
+        {
+            $this->redirectToRoute('buscar', ['titulo'=>$request->get('buscar')]);
+        }
+        
+        str_replace('_', ' ', $busqueda);
+        
+        $repository = $this->getDoctrine()
+                ->getRepository('AppBundle:Pelicula');
+
+        $query = $repository->createQueryBuilder('p')
+                ->where('p.titulo LIKE :titulo')
+                ->setParameter('titulo', '%' . $busqueda . '%')
+                ->orderBy('p.titulo', 'ASC')
+                ->getQuery();
+
+        $peliculas = $query->getResult();
+
+        foreach ($peliculas as $p) {
+            $p->setSource('Omdb');
+            $p->fetch();
+        }
+
+        return $this->render('full-views/resultados.html.twig', [
+                    'peliculas' => $peliculas,
+        ]);
     }
-    
+
     /**
-     * @Route("/register/", name="register")
+     * @Route("/checkout/", name="checkout")
      */
-    public function registerAction(Request $request)
+    public function checkoutAction(Request $request)
     {
-        $notice='';
+        return $this->render('full-views/checkout.html.twig',[]);
         
-        $user=$request->get('user');
-        $email=$request->get('email');
-        $password=$request->get('password');
-        $cpassword=$request->get('password-confirm');
-        
-        if(empty($user) || empty($email) || empty($password) || empty($cpassword))
-        {
-            return $this->render("full-views/login-register.html.twig",[
-                'notice'=>'No has completado todos los campos...',
-                'error'=>true
-            ]);
-        }
-            
-        if(! ($cpassword == $password))
-        {
-            return $this->render("full-views/login-register.html.twig",[
-                'notice'=>'La contraseña no coincide con su confirmación',
-                'error'=>true
-            ]);
-        }
-        
-        
-        return $this->render("full-views/test.html.twig",[
-            'user'=>$user,
-            'notice'=>$notice
-        ]);
     }
     
 }

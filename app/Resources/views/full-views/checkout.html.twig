@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block navigation %}
+    {% include 'navigation/main-navigation.html.twig' %}
+    {% include 'navigation/barra-busqueda.html.twig' %}               
+    {% include 'navigation/logged.html.twig'%}
+    {% include 'navigation/carrito.html.twig' %}
+
+{% endblock %}
+{% block main %}
+    <h1 id="ordersummary-h1">Order summary</h1>
+    <div id="ordersummary">
+        <table id="ordersummary-table" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Discount(%)</th>
+                <th>Discount</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tfoot>
+                <tr class="info">
+                    <th>-</th>
+                    <th>-</th>
+                    <th>3</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>44.97</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                
+            <!--Foreach-->
+                <tr>
+                    <td>p001f0005</td>
+                    <td>Película de muestra</td>
+                    <td>3</td>
+                    <td>14.99</td>
+                    <td>0.00%</td>
+                    <td>0.00</td>
+                    <td>44.97</td>
+                </tr>
+            <!--Endforeach-->
+            </tbody>
+        </table>
+    </div>
+    
+     <h2 id="carddetails-h2">Card details</h2>
+    <div class="col-md-3" id="confirm-form-div">
+    <form>
+        <label name="fullname">Cardholder full name: </label>
+        <input type="text" class="form-control" name="fullname">
+        <label name="expdate">Expirery date: </label>
+        <input type="date" class="form-control" name="expdate">
+        <label name="cardnumber">Card number: </label>
+        <input type="text" class="form-control" name="cardnumber">
+        <button type="submit" class="btn btn-sucess">Confirm order</button>
+    </form>
+    </div>
+{% endblock %}

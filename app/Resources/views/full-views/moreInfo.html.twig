@@ -1,0 +1,39 @@
+{# TODO fetch data #}
+{#
+    VARIABLES REQUERIDAS PARA ESTA PLANTILLA (declarar antes de invocarla):
+        peliculas: array de instancias de entidad pelicula o producto. 
+        Por ahora se usarán películas, hasta que sea posible obtener los productos.
+#}
+
+{% extends 'base.html.twig' %}
+
+{% set formats = ['','',''] %}
+
+{% block main %}
+    <article class="result-article row">
+    <figure class="col-xl-1 col-lg-2 col-md-2 col-sm-3 caratula-info-fig">
+    <img src="{{ asset('images/harry-potter-y-las-reliquias-de-la-muerte-parte-2-en-dvd-13514-MLU3202317359_092012-F') }}" class="caratula-info-img">
+    </figure>
+    <div class="col-xl-11 col-lg-10 col-md-10 col-sm-9" id="details-results-div">
+        <h1><strong>Title</strong><small>()</small></h1>
+        <p><strong>Director: </strong></p>
+        <p><strong>Edition: </strong></p>
+        <p><strong>Actors: </strong></p>
+        <p><strong>Rating: </strong></p>
+        <div id="article-buttons">
+            <div class="dropdown">
+                <button class="btn btn-success">Buy</button>
+                <div class="dropdown-content">
+                    {% for f in formats %}
+                        {% set buy_format_link="Enlace/de/formato/del/objeto" %}
+                        {% set format_name="DVD" %}
+                        {% set format_price=15.00%}
+                            <a href="{{buy_format_link}}">{{format_name}} {{format_price}}€</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+                <div></div>
+    </div>
+</article>
+{% endblock %}
