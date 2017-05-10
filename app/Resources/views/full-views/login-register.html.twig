@@ -1,0 +1,55 @@
+{% extends 'base.html.twig'%}
+
+{% block body %}
+    <div id="container">
+        <h2 class='page-title'>Login/Register</h2>
+        {% if error %}
+            <p class='alert alert-danger'>{{notice}}</p>
+        {% endif %}
+        <div class='row'>
+            <div id="login-col" class="col-md-3">
+                <strong>LOGIN</strong>
+                <form method="post" class="login-form" action="/login/">
+                    <div class="form-group">
+                        <label for='login-user'>User/Email</label>
+                        <input type="text" name="user-email"  id="login-user" required>
+                    </div>
+                    <div class='form-group'>
+                        <label for='login-password'>Password</label>
+                        <input type="password" name="password" id="login-password" required>
+                    </div>
+                    <div class='form-group'>
+                        <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-log-in"> </span> <strong>Login user</strong></button>
+                    </div>
+                </form>
+            </div>
+            <div id="register-col" class="col-md-3">
+                <strong>REGISTER</strong>
+                <form method="post" class="register-form" action="/register/">
+                    <div class="form-group">
+                        <label for='register-user'>Username</label>
+                        <input type="text" name="user"  id="register-user" required>
+                    </div>
+                    <div class="form-group">
+                        <label for='register-email'>Email</label>
+                        <input type="email" name="email"  id="register-email" required>
+                    </div>
+                    
+                    <div class='form-group'>
+                        <label for='register-password'>Password</label>
+                        <input type="password" name="password" id="register-password" required>
+                    </div>
+                    <div class='form-group'>
+                        <label for='register-password-confirm'>Confirm password</label>
+                        <input type="password" name="password-confirm" id="register-password-confirm" required>
+                    </div>
+                    <div class='form-group'>
+                        <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-log-in"> </span> <strong>Register user</strong></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+{% endblock %}

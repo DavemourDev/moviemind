@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+    <!--Prueba de cómo recibe los datos la vista-->
+    {#
+    <h2>Productos</h2>
+    <ul>
+        {% for pr in productos %}
+            <li>{{pr.codigoProducto}}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Películas</h2>
+    <ul>
+        {% for pe in peliculas %}
+            <li>{{pe.titulo}}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Ediciones</h2>
+    <ul>
+        {% for e in ediciones %}
+            <li>{{e.idPelicula}} - {{e.nombre}}</li>
+        {% endfor %}
+    </ul>
+    #}
+    
+    <!--Prueba de cómo se reciben get y post-->
+    <p>{{notice}}</p>
+{% endblock %}
