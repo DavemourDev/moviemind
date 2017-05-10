@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Pelicula;
+use AppBundle\Utils\Imdb;
+
 
 
 class DefaultController extends Controller {
@@ -23,7 +25,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/buscar/", name="resultado")
+     * @Route("/buscar/{texto}", name="resultado")
      */
     public function buscarAction(Request $request) {
         //$busqueda = $request->get("buscar");
@@ -40,9 +42,7 @@ class DefaultController extends Controller {
             $r->setSource('Omdb');
             $r->fetch();
         }
-        
-        //var_dump($resultados[3]->getInfo('Title'));
-        
+
         //$peliculas=[];
         
 //        foreach($resultados as $r)
@@ -58,5 +58,50 @@ class DefaultController extends Controller {
             ]);
         
     }
+    
+    /**
+     * @Route("/products/", name="products")
+     */
+    public function productsAction(Request $request) {
+        //$busqueda = $request->get("buscar");
 
+        $productos = $this->getDoctrine()
+                ->getRepository('AppBundle:Producto')
+                ->findAll();
+                //->find($busqueda);
+        
+        $peliculas= $this->getDoctrine()
+                ->getRepository('AppBundle:Pelicula')
+                ->findAll();
+        
+        $ediciones= $this->getDoctrine()
+                ->getRepository('AppBundle:Edicion')
+                ->findAll();
+        
+        foreach($peliculas as $p)
+        {
+            $p->setSource('Omdb');
+            $p->fetch();
+        }
+
+        //$peliculas=[];
+        
+//        foreach($resultados as $r)
+//        {
+//            $p=new Pelicula();
+//            $p->setTitulo($r->titulo);
+//            $p->setImdb($r->imdb);
+//            $peliculas[]=$p;
+//        }
+
+            return $this->render('full-views/resultados.html.twig', [
+                        'productos' => $productos,
+                        'peliculas' => $peliculas,
+                        'ediciones' => $ediciones,
+            ]);
+        
+    }
+
+    
+    
 }
