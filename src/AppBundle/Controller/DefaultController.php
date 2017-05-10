@@ -22,29 +22,41 @@ class DefaultController extends Controller {
     /**
      * @Route("/moreInfo/{imdb}", name="info")
      */
-    public function moreInfoAction(Request $request) {
+    public function moreInfoAction(Request $request, $imdb) {
 
+        //Halla la película
+        $pelicula = $this->getDoctrine()
+                ->getRepository('AppBundle:Pelicula')
+                ->createQueryBuilder('p')
+                ->where('p.imdb = :imdb')
+                ->setParameter('imdb', $imdb)
+                ->getQuery()
+                ->getResult()[0];
+        
+        $pelicula->setSource('Omdb');
+        $pelicula->fetch();
+        
+        //Halla la edicion
+        $edicion = $this->getDoctrine()
+                ->getRepository('AppBundle:Edicion')
+                ->createQueryBuilder('e')
+                ->where('e.idPelicula = :idPelicula')
+                ->setParameter('idPelicula', $pelicula->getId())
+                ->getQuery()
+                ->getResult()[0];//Por ahora nos conformaremos con hallar la primera edición...
+        
         $productos = $this->getDoctrine()
                 ->getRepository('AppBundle:Producto')
-                ->findAll();
-
-        $peliculas = $this->getDoctrine()
-                ->getRepository('AppBundle:Pelicula')
-                ->findAll();
-
-        $ediciones = $this->getDoctrine()
-                ->getRepository('AppBundle:Edicion')
-                ->findAll();
-
-        foreach ($peliculas as $p) {
-            $p->setSource('Omdb');
-            $p->fetch();
-        }
-
+                ->createQueryBuilder('pr')
+                ->where('pr.idEdicion = :idEdicion')
+                ->setParameter('idEdicion', $edicion->getId())
+                ->getQuery()
+                ->getResult();
+        
         return $this->render('full-views/moreInfo.html.twig', [
                     'productos' => $productos,
-                    'peliculas' => $peliculas,
-                    'ediciones' => $ediciones,
+                    'pelicula' => $pelicula,
+                    'edicion'=>$edicion
         ]);
     }
 
@@ -55,9 +67,10 @@ class DefaultController extends Controller {
      */
     public function buscarAction(Request $request, $busqueda="") {
         
-        if($request->get('buscar')!==null)
+        if(!$busqueda)
         {
-            $this->redirectToRoute('buscar', ['titulo'=>$request->get('buscar')]);
+            $busqueda=$request->get('buscar');
+            $this->redirectToRoute('buscar', ['busqueda'=>$busqueda]);
         }
         
         str_replace('_', ' ', $busqueda);
@@ -92,4 +105,15 @@ class DefaultController extends Controller {
         
     }
     
+    /**
+     * @Route("/crud/", name="crud")
+     */
+    public function crudController()
+    {
+        //El usuario ha de ser el administrador para poder ejecutar esto...
+        //if(is_admin($user))
+        
+        return $this->render('full-views/crud-index.html.twig');
+        
+    }
 }

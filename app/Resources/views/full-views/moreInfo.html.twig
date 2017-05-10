@@ -7,33 +7,42 @@
 
 {% extends 'base.html.twig' %}
 
-{% set formats = ['','',''] %}
-
 {% block main %}
-    <article class="result-article row">
-    <figure class="col-xl-1 col-lg-2 col-md-2 col-sm-3 caratula-info-fig">
-    <img src="{{ asset('images/harry-potter-y-las-reliquias-de-la-muerte-parte-2-en-dvd-13514-MLU3202317359_092012-F') }}" class="caratula-info-img">
-    </figure>
-    <div class="col-xl-11 col-lg-10 col-md-10 col-sm-9" id="details-results-div">
-        <h1><strong>Title</strong><small>()</small></h1>
-        <p><strong>Director: </strong></p>
-        <p><strong>Edition: </strong></p>
-        <p><strong>Actors: </strong></p>
-        <p><strong>Rating: </strong></p>
-        <div id="article-buttons">
-            <div class="dropdown">
-                <button class="btn btn-success">Buy</button>
-                <div class="dropdown-content">
-                    {% for f in formats %}
-                        {% set buy_format_link="Enlace/de/formato/del/objeto" %}
-                        {% set format_name="DVD" %}
-                        {% set format_price=15.00%}
+    <article class="result-article">
+        <div class='row'>
+            <figure class="col-xl-1 col-lg-2 col-md-2 col-sm-3 col-xs-4 caratula-info-fig">
+                <img src="{{pelicula.info['Poster']}}" class="caratula-info-img">
+            </figure>
+            <div class="col-xl-10 col-lg-9 col-md-9 col-sm-8 col-xs-7" id="details-results-div">
+                <h1><strong>{{pelicula.titulo}}</strong> <small>({{pelicula.info['Year']}})</small></h1>
+                <p><strong>Edition: </strong>{{edicion.nombre}}</p>
+                <p><strong>Genre: </strong>{{pelicula.info['Genre']}}</p>
+                <p><strong>Director: </strong>{{pelicula.info['Director']}}</p>
+                <p><strong>Writers: </strong>{{pelicula.info['Writer']}}</p>
+                <p><strong>Actors: </strong>{{pelicula.info['Actors']}}</p>
+                <p><strong>Rated: </strong>{{pelicula.info['Rated']}}</p>
+                <p><strong>Website: </strong><a href='{{pelicula.info['Website']}}' target='__blank'>{{pelicula.info['Website']}}</a></p>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='panel panel-default col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                <p class='panel-heading'><strong>Synopsis</strong></p>
+                <p class='text-justify plot'>{{pelicula.info['Plot']}}</p>
+            </div>
+                
+            <div id="article-buttons" class='col-xl-5 col-lg-5, col-md-5 col-sm-12 col-xs-12'>
+                <div class="dropdown">
+                    <button class="btn btn-success">Buy</button>
+                    <div class="dropdown-content">
+                        {% for p in productos %}
+                            {% set buy_format_link="Enlace/de/formato/del/objeto" %}{# Aquí añadiremos lo que sea necesario para añadir al carrito. #}
+                            {% set format_name=p.idFormato.nombre %}
+                            {% set format_price=p.precio %}
                             <a href="{{buy_format_link}}">{{format_name}} {{format_price}}€</a>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-                <div></div>
-    </div>
-</article>
+    </article>
 {% endblock %}
