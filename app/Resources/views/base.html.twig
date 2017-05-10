@@ -49,12 +49,15 @@
                 align-content: center;
             }
 
-            #navigation>.nav-panel>a
+            #navigation>.nav-panel>a, .link-nav
             {
                 color:#fff;
                 padding:.25rem;
                 text-decoration:none;
-
+            }
+            .link-nav{
+                background-color:transparent;
+                border: none;
             }
             @media (min-width: 768px) {
                 #wrapper { width: 80%; margin: 2em auto; }
@@ -198,10 +201,153 @@
                 width: 120px;  
             }
             @media (max-width: 576px) {
-                #details-results-div{
-                   width: 100%;
+                .details-results-div, #details-results-div{
+                    width: 100%;
+            }
+            .caratula-info-fig, .caratula-info-img{
+                width: 220px;
+            }
+            .caratula-info-img{
+                width:100%;
+            }
+            .details-results-div{
+                padding-top: 20px;
+            }
+            .paragraph{
+                clear:both;
+                padding:30px;
+            }
+            figure{
+                padding:0px;
+            }
+            .caratula-info-img{
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+            }
+            @media (max-width: 400px) {
+                .nav-panel{
+                    width: 100%;
+                    text-align: center;
+                }
+                .link-nav{
+                    width:300px;
                 }
             }
+
+            .badge {
+                background-color: #6394F8;
+                border-radius: 10px;
+                color: white;
+                display: inline-block;
+                font-size: 12px;
+                line-height: 1;
+                padding: 3px 7px;
+                text-align: center;
+                vertical-align: middle;
+                white-space: nowrap;
+            }
+
+            .shopping-cart {
+                margin: 20px 5px;
+                float: right;
+                background: white;
+                width: 320px;
+                position: relative;
+                border-radius: 3px;
+                padding: 20px;
+            }
+            .shopping-cart:after {
+                bottom: 100%;
+                left: 89%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-bottom-color: white;
+                border-width: 8px;
+                margin-left: -8px;
+            }
+
+            .cart-icon {
+                color: #515783;
+                font-size: 24px;
+                margin-right: 7px;
+                float: left;
+            }
+
+            .button {
+                color:white;
+                text-align: center;
+                padding: 12px;
+                text-decoration: none;
+                display: block;
+                border-radius: 3px;
+                font-size: 16px;
+                margin: 25px 0 15px 0;
+            }
+
+            .clearfix:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .shopping-cart .shopping-cart-header {
+                border-bottom: 1px solid #E8E8E8;
+                padding-bottom: 15px;
+            }
+            .cart-div{
+                padding-right: 25px !important;
+            }
+            #checkout-link{
+                background-color: #d2d2d2;
+                color:#333;
+            }
+            #checkout-link:hover{
+                color:#ccc;
+                background-color:#333;
+            }
+
+            .shopping-cart-header {
+                border-bottom: 1px solid #E8E8E8;
+                padding-bottom: 15px;
+                height: 35px;
+            }
+            .shopping-cart-header .shopping-cart-total {
+                float: right;
+            }
+            .shopping-cart-items {
+
+                padding-top: 20px;
+            }
+            .shopping-cart-items li {
+                margin-bottom: 18px;
+            }
+
+            .shopping-cart-items  img {
+                float: left;
+                margin-right: 12px;
+            }
+
+            .shopping-cart-items  .item-name {
+                display: block;
+                padding-top: 10px;
+                font-size: 16px;
+            }
+
+            .shopping-cart-items  .item-price {
+                margin-right: 8px;
+            }
+            .shopping-cart-items{
+                list-style: none;
+                padding-left: 10px;
+            }
+            .delete-icon{
+                text-decoration: none;
+                color:inherit;
+            }
+
         </style>
         <link href="https://fonts.googleapis.com/css?family=Dosis|Roboto" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -217,28 +363,30 @@
 
             {% endblock %}
         </nav>
+        <aside id="sidebar">
+            {% block aside %}
+                {% include 'carrito/cart-content.html.twig' %}
+            {% endblock %}
+        </aside>
         <div id="container" >
+
             <main id="main" class="container container-fluid">
                 {% block main %}
                 {% endblock %}
             </main>
-            <aside id="sidebar">
-            {% block aside %}
-                <!--David: Si el carrito va en la nav, esto lo podemos eliminar, no?-->
-            {% endblock %}
-        </aside>
-        <footer id="footer">
-            {% block footer %}
-           {% endblock %}
-        </footer>
-    </div>
-    <!--David:
-        Pongo aquí el javascript común a todas las páginas.
-        Si en una página nos da por añadir scripts usando el bloque script nos machacará lo que haya en él en esta plantilla.
-    -->
-        <script src="{{asset('js/script.js')}}"></script>        
-    {% block javascripts %}
-    {% endblock %}
 
-</body>
+            <footer id="footer">
+                {% block footer %}
+                {% endblock %}
+            </footer>
+        </div>
+        <!--David:
+            Pongo aquí el javascript común a todas las páginas.
+            Si en una página nos da por añadir scripts usando el bloque script nos machacará lo que haya en él en esta plantilla.
+        -->
+        <script src="{{asset('js/script.js')}}"></script>        
+        {% block javascripts %}
+        {% endblock %}
+
+    </body>
 </html>
