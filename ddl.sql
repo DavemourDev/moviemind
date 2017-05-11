@@ -81,7 +81,7 @@ create table if not exists cliente(
 	id int unsigned not null auto_increment,
     nombre varchar(100) not null unique,
     email varchar(255) not null,
-    pass varchar(255) not null,
+    password varchar(255) not null,
     fecha_registro datetime not null default current_timestamp(),
     
     primary key(id)
